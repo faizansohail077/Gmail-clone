@@ -1,1 +1,15 @@
-
+* {
+	margin: 0;
+	padding: 0;
+}
+.app__body {
+	display: flex;
+	height: 100vh;
+}
+.app__body > div:first-child {
+	flex: 0.2;
+}
+.app__body > div:nth-child(2) {
+	flex: 1;
+	padding-right: 5px;
+}
