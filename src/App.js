@@ -5,7 +5,10 @@ import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Mail from './Screens/Mail/Mail';
 import EmailList from './Screens/EmailList/EmailList';
+import SendMail from './components/SendMail/SendMail';
+import { useSelector } from 'react-redux';
 function App() {
+  const { sendMessageIsOpen } = useSelector(state => state.MailReducer)
   return (
     <Router>
       <div className="app">
@@ -25,6 +28,9 @@ function App() {
             </div>
           </Switch>
         </div>
+        {
+          sendMessageIsOpen ? <SendMail /> : ""
+        }
       </div>
     </Router>
   );

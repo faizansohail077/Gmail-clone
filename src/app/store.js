@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { combineReducers, createStore } from 'redux';
+import MailReducer from '../features/Reducer/Reducer'
 
-export default configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+
+const rootReducer = combineReducers({
+  MailReducer
+})
+
+
+export const store = createStore(rootReducer)

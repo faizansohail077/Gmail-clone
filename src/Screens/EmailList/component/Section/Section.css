@@ -16,3 +16,6 @@
 	background-color: whitesmoke;
 	border-width: 3px !important;
 }
+.section > h4 {
+	padding-left: 10px;
+}
