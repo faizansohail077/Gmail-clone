@@ -10,3 +10,10 @@ export const closeMessage = () => {
     }
 }
 
+export const selectedmail = (payload) => {
+    return {
+        type: 'SELECT_MAIL',
+        payload
+    }
+}
+

@@ -1,10 +1,21 @@
 import { Checkbox, IconButton } from '@material-ui/core'
 import { ArrowDropDown, ChevronLeft, ChevronRight, Inbox, KeyboardHide, LocalOffer, MoreVert, People, Redo, Settings } from '@material-ui/icons'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { selectedmail } from '../../features/Actions/Action'
+import { db } from '../../firebase'
 import EmailRow from './component/EmailRow/EmailRow'
 import Section from './component/Section/Section'
 import './EmailList.css'
 const EmailList = () => {
+    const [emails, setEmail] = useState([])
+    useEffect(() => {
+        db.collection("emails").orderBy("timestamp", "desc").onSnapshot(snapshot => setEmail(snapshot.docs.map(doc => ({
+            id: doc.id,
+            data: doc.data()
+        }))))
+    }, [])
+
+    console.log('this is email', emails)
     return (
         <div className="emailList">
             <div className="emailList__settings">
@@ -45,12 +56,17 @@ const EmailList = () => {
                 <Section Icon={LocalOffer} title="Promotios" color="green" />
             </div>
             <div className="emailList_lists">
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
-                <EmailRow title="Twitch" subject="Hello Everyone" description="this is Gmail" time="10pm" />
+                {emails.map(({ id, data: { to, subject, message, timestamp } }) => (
+                    <EmailRow id={id} key={id} title={to} subject={subject} description={message} time={new Date(timestamp?.seconds * 1000).toUTCString()} />
+                ))}
+
+
+
+
+
+
+
+
             </div>
         </div>
     )
